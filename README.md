@@ -2,6 +2,21 @@
 
 A simple CI setup to integrate with AMP and run tests
 
+```json
+"trigger" :{
+  "job": "jobname",
+  "versions": ["1.16.5", "1.17.1"],
+  "modLoaders": [],
+  "dependancies": ["mod1", "mod2"], // Can be a URL or an in-house modname
+  "wipe": ["world", "configs", "all"]
+}
+
+"stage": {
+  "stage": "start" | "complete" | "crash",
+  "job": "jobname",
+}
+```
+
 - [ ] triggered when a build finishes
   - [ ] queue system for trusted users (handle via discord bot)
 - [ ] options to specify version ranges and mod loaders to test

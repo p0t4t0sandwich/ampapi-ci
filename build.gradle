@@ -1,0 +1,53 @@
+plugins {
+    id('java')
+    id('com.github.johnrengelman.shadow') version('8.1.1')
+}
+
+group = 'dev.neuralnexus'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    maven {
+        name "NerualNexus"
+        url uri("https://maven.neuralnexus.dev/releases")
+    }
+    maven {
+        name = "NerualNexus Snapshots"
+        url = uri("https://maven.neuralnexus.dev/snapshots")
+    }
+}
+
+dependencies {
+    implementation('dev.neuralnexus:ampapi:1.2.7')
+    implementation('dev.neuralnexus:taterlib-api:1.1.0-R0.16-SNAPSHOT')
+    implementation('com.google.code.gson:gson:2.10.1')
+    implementation('com.sparkjava:spark-core:2.9.5')
+}
+
+shadowJar {
+    dependencies {
+        include(dependency("${group}:taterlib-ci:${version}"))
+        exclude('META-INF', 'META-INF/**')
+        exclude('LICENSE')
+
+        include(dependency('dev.neuralnexus:ampapi:1.2.7'))
+        include(dependency('dev.neuralnexus:taterlib-api:1.1.0-R0.16-SNAPSHOT'))
+        include(dependency('com.google.code.gson:gson:2.10.1'))
+        include(dependency('com.sparkjava:spark-core:2.9.5'))
+    }
+
+    manifest {
+        attributes 'Specification-Title': 'TaterLib CI',
+                'Specification-Version': version,
+                'Specification-Vendor': 'NeuralNexus',
+                'Implementation-Version': version,
+                'Implementation-Vendor': 'NeuralNexus',
+                'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+                'Main-Class': "${group}.taterlibci.Main"
+    }
+
+    from(["README.md", "LICENSE"]) {
+        into("META-INF")
+    }
+}
