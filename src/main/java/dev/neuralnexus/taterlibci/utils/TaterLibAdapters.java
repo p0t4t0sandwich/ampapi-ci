@@ -1,4 +1,4 @@
-package dev.neuralnexus.taterlibci;
+package dev.neuralnexus.taterlibci.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

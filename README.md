@@ -17,6 +17,8 @@ A simple CI setup to integrate with AMP and run tests
 }
 ```
 
+https://discourse.cubecoders.com/t/configuring-amp-for-enterprise-or-network-usage/1830
+
 - [ ] triggered when a build finishes
     - [ ] queue system for trusted users (handle via discord bot)
 - [ ] options to specify version ranges and mod loaders to test

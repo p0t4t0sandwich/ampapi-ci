@@ -1,4 +1,6 @@
-package dev.neuralnexus.taterlibci;
+package dev.neuralnexus.taterlibci.api;
+
+import dev.neuralnexus.taterlibci.Main;
 
 import io.javalin.http.ContentType;
 import io.javalin.http.Context;
@@ -13,7 +15,7 @@ public class APIRoutes {
      *
      * @param ctx The context to use.
      */
-    static void getOpenAPIJSON(Context ctx) {
+    public static void getOpenAPIJSON(Context ctx) {
         try {
             String index =
                     new String(
@@ -36,7 +38,7 @@ public class APIRoutes {
      *
      * @param ctx The context to use.
      */
-    static void getDocs(Context ctx) {
+    public static void getDocs(Context ctx) {
         try {
             String index =
                     new String(
@@ -59,7 +61,7 @@ public class APIRoutes {
      *
      * @param ctx The context to use.
      */
-    static void redirectToDocs(Context ctx) {
+    public static void redirectToDocs(Context ctx) {
         ctx.status(HttpStatus.MOVED_PERMANENTLY);
         ctx.redirect("/docs");
     }
@@ -69,16 +71,24 @@ public class APIRoutes {
      *
      * @param ctx The context to use.
      */
-    static void trigger(Context ctx) {
-        //        if (!ContentType.JSON.equals(ctx.contentType())) {
-        //            ctx.status(HttpStatus.BAD_REQUEST);
-        //            ctx.result("Invalid content type.");
-        //            return;
-        //        }
-        System.out.println(ctx.body());
+    public static void trigger(Context ctx) {
+        if (!ContentType.JSON.equals(ctx.header("Content-Type"))) {
+            ctx.status(HttpStatus.BAD_REQUEST);
+            ctx.result("Invalid content type.");
+            return;
+        }
+        TriggerRequest request;
+        try {
+            request = ctx.bodyAsClass(TriggerRequest.class);
+            System.out.println(request.generatePermutations());
+        } catch (Exception e) {
+            ctx.status(HttpStatus.BAD_REQUEST);
+            ctx.result("Invalid request body.");
+            return;
+        }
 
         ctx.contentType(ContentType.JSON);
         ctx.status(HttpStatus.OK);
-        ctx.result("{\"status\": \"success\"}");
+        ctx.json("{\"testId\": \"" + request.testId + "\"}");
     }
 }

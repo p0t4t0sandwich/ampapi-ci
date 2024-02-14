@@ -1,6 +1,7 @@
 package dev.neuralnexus.taterlibci;
 
 import dev.neuralnexus.ampapi.modules.Minecraft;
+import dev.neuralnexus.taterlibci.api.APIRoutes;
 
 import io.javalin.Javalin;
 

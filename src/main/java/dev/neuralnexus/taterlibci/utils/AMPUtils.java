@@ -1,7 +1,8 @@
-package dev.neuralnexus.taterlibci;
+package dev.neuralnexus.taterlibci.utils;
 
 import dev.neuralnexus.ampapi.modules.CommonAPI;
 import dev.neuralnexus.ampapi.types.FileDirectory;
+import dev.neuralnexus.taterlibci.test.TestSettings;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
@@ -70,5 +71,9 @@ public class AMPUtils {
                 API.FileManagerPlugin.ReadFileChunk(filePath, 0, file.get().SizeBytes.intValue())
                         .Result;
         return Optional.of(new String(Base64.getDecoder().decode(base64), StandardCharsets.UTF_8));
+    }
+
+    public static void configureServer(CommonAPI API, TestSettings settings) {
+        //        MinecraftModule.Minecraft.SpecificPaperVersion
     }
 }
