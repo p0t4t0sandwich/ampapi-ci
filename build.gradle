@@ -19,24 +19,17 @@ repositories {
 }
 
 dependencies {
-    implementation('dev.neuralnexus:ampapi:1.2.7')
+    implementation('dev.neuralnexus:ampapi:1.2.8')
     implementation('dev.neuralnexus:taterlib-api:1.1.0-R0.16-SNAPSHOT')
     implementation('com.google.code.gson:gson:2.10.1')
-    implementation('com.sparkjava:spark-core:2.9.5')
+    implementation('io.javalin:javalin-bundle:6.0.0')
 }
 
 shadowJar {
     dependencies {
-        include(dependency("${group}:taterlib-ci:${version}"))
         exclude('META-INF', 'META-INF/**')
-        exclude('LICENSE')
-
-        include(dependency('dev.neuralnexus:ampapi:1.2.7'))
-        include(dependency('dev.neuralnexus:taterlib-api:1.1.0-R0.16-SNAPSHOT'))
-        include(dependency('com.google.code.gson:gson:2.10.1'))
-        include(dependency('com.sparkjava:spark-core:2.9.5'))
+        exclude('LICENSE', 'README')
     }
-
     manifest {
         attributes 'Specification-Title': 'TaterLib CI',
                 'Specification-Version': version,
@@ -44,10 +37,12 @@ shadowJar {
                 'Implementation-Version': version,
                 'Implementation-Vendor': 'NeuralNexus',
                 'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-                'Main-Class': "${group}.taterlibci.Main"
+                'Main-Class': "${project.group}.taterlibci.Main"
     }
-
     from(["README.md", "LICENSE"]) {
         into("META-INF")
     }
+    archiveFileName = "taterlib-ci-${project.version}.jar"
 }
+
+tasks.build.dependsOn(shadowJar)
