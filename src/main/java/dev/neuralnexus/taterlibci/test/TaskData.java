@@ -7,15 +7,16 @@ import java.util.Set;
 import java.util.UUID;
 
 /** A class for handling test settings. */
-public class TestSettings {
+public class TaskData {
     public UUID testId;
     public String jobArtifactURL;
     public MinecraftVersion version;
     public ServerType serverType;
     public Set<String> dependencies;
     public Set<String> wipeFiles;
+    public TaskState state = TaskState.QUEUED;
 
-    public TestSettings(
+    public TaskData(
             UUID testId,
             String jobArtifactURL,
             String version,
@@ -30,21 +31,19 @@ public class TestSettings {
         this.wipeFiles = wipeFiles;
     }
 
-    @Override
-    public String toString() {
-        return "TestSettings{"
-                + "testId="
-                + testId
-                + "jobArtifactURL="
-                + jobArtifactURL
-                + ", version="
-                + version
-                + ", serverType="
-                + serverType
-                + ", dependencies="
-                + dependencies
-                + ", wipeFiles="
-                + wipeFiles
-                + '}';
+    /**
+     * Updates the state of the task.
+     *
+     * @param state The new state.
+     */
+    public void setState(TaskState state) {
+        this.state = state;
+    }
+
+    public enum TaskState {
+        QUEUED,
+        RUNNING,
+        COMPLETE,
+        FAILED
     }
 }

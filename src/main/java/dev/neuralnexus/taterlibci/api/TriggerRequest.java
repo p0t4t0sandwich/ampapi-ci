@@ -1,6 +1,6 @@
 package dev.neuralnexus.taterlibci.api;
 
-import dev.neuralnexus.taterlibci.test.TestSettings;
+import dev.neuralnexus.taterlibci.test.TaskData;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,13 +20,12 @@ public class TriggerRequest {
      *
      * @return The set of all possible permutations.
      */
-    public Set<TestSettings> generatePermutations() {
-        Set<TestSettings> settings = new HashSet<>();
+    public Set<TaskData> generatePermutations() {
+        Set<TaskData> settings = new HashSet<>();
         for (String version : versions) {
             for (String serverType : serverTypes) {
                 settings.add(
-                        new TestSettings(
-                                testId, job, version, serverType, dependencies, wipeFiles));
+                        new TaskData(testId, job, version, serverType, dependencies, wipeFiles));
             }
         }
         return settings;

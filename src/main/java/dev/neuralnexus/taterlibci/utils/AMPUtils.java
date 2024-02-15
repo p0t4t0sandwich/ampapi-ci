@@ -2,7 +2,7 @@ package dev.neuralnexus.taterlibci.utils;
 
 import dev.neuralnexus.ampapi.modules.CommonAPI;
 import dev.neuralnexus.ampapi.types.FileDirectory;
-import dev.neuralnexus.taterlibci.test.TestSettings;
+import dev.neuralnexus.taterlibci.test.TaskData;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
@@ -73,7 +73,7 @@ public class AMPUtils {
         return Optional.of(new String(Base64.getDecoder().decode(base64), StandardCharsets.UTF_8));
     }
 
-    public static void configureServer(CommonAPI API, TestSettings settings) {
+    public static void configureServer(CommonAPI API, TaskData settings) {
         //        MinecraftModule.Minecraft.SpecificPaperVersion
     }
 }
